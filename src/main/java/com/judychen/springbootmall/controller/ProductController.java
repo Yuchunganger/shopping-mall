@@ -1,13 +1,13 @@
 package com.judychen.springbootmall.controller;
 
 import com.judychen.springbootmall.constant.ProductCategory;
+import com.judychen.springbootmall.dto.ProductQueryParams;
 import com.judychen.springbootmall.dto.ProductRequest;
 import com.judychen.springbootmall.model.Product;
 import com.judychen.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,7 +24,11 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required=false) ProductCategory category,
             @RequestParam(required=false) String search){
-        List<Product> products = productService.getProducts(category, search);
+
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+        List<Product> products = productService.getProducts(productQueryParams);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
