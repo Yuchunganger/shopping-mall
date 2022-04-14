@@ -1,5 +1,6 @@
 package com.judychen.springbootmall.controller;
 
+import com.judychen.springbootmall.constant.ProductCategory;
 import com.judychen.springbootmall.dto.ProductRequest;
 import com.judychen.springbootmall.model.Product;
 import com.judychen.springbootmall.service.ProductService;
@@ -20,8 +21,10 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> products = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required=false) ProductCategory category,
+            @RequestParam(required=false) String search){
+        List<Product> products = productService.getProducts(category, search);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
