@@ -77,23 +77,7 @@ public class ProductDaoImpl implements ProductDao {
         Map<String, Object> map = new HashMap<>();
 
         // 查詢條件 Filtering
-        if(productQueryParams.getCategory() != null){
-            sql = sql + " AND category = :category";
-            map.put("category", productQueryParams.getCategory().name());
-        }
-
-        if(productQueryParams.getSearch() != null){
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search", '%' + productQueryParams.getSearch() + '%');
-        }
-
-        // 排序 Sorting
-        sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
-
-        // 分頁 Pagination
-        sql = sql + " LIMIT :limit OFFSET :offset";
-        map.put("limit", productQueryParams.getLimit());
-        map.put("offset", productQueryParams.getOffset());
+        sql = addFilteringSql(sql, map, productQueryParams);
 
         // 取得總筆數
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
@@ -109,15 +93,7 @@ public class ProductDaoImpl implements ProductDao {
         Map<String, Object> map = new HashMap<>();
 
         // 查詢條件 Filtering
-        if(productQueryParams.getCategory() != null){
-            sql = sql + " AND category = :category";
-            map.put("category", productQueryParams.getCategory().name());
-        }
-
-        if(productQueryParams.getSearch() != null){
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search", '%' + productQueryParams.getSearch() + '%');
-        }
+        sql = addFilteringSql(sql, map, productQueryParams);
 
         // 排序 Sorting
         sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
@@ -130,6 +106,22 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> products = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
         return products;
+    }
+
+    private String addFilteringSql(String sql, Map<String,Object> map, ProductQueryParams productQueryParams){
+
+        // 查詢條件 Filtering
+        if(productQueryParams.getCategory() != null){
+            sql = sql + " AND category = :category";
+            map.put("category", productQueryParams.getCategory().name());
+        }
+
+        if(productQueryParams.getSearch() != null){
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search", '%' + productQueryParams.getSearch() + '%');
+        }
+
+        return sql;
     }
 
     @Override
