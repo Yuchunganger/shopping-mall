@@ -1,0 +1,95 @@
+*
+  //border: solid 1px black
+  font-family: Arial, 微軟正黑體
+  position: relative
+
+@mixin size($w, $h)
+  width: $w
+  height: $h
+
+html, body
+  margin: 0
+  padding: 0
+  +size(100%, 100%)
+
+#screen
+  padding: 100px 170px
+
+#vm_courses
+  padding: 30px 10px
+
+.courses
+  +size(265px, 370px)
+  display: inline-block
+  margin-right: 30px
+  color: #fff
+  padding-bottom: 10px
+  box-shadow: 0 0 12px rgba(#000,0.2)
+  border-bottom: solid 6px #FA8B00
+  border-radius: 5px
+  overflow: hidden
+  .top
+    +size(100%, 170px)
+    overflow: hidden
+    .status
+      position: absolute
+      top: 0
+      left: 0
+      padding-top: 3px
+      width: 100%
+      text-align: center
+      background-color: #FA8B00
+      color: #ffffff
+      transform: translate(95px, 20px) rotate(45deg)
+    .cover_img
+      +size(100%, 100%)
+      background-image: url("https://images.api.hahow.in/images/625e68d7f2c4be0006dc27ac?width=170")
+      background-size: cover
+      background-position: center center
+      overflow: hidden
+      transition: 0.5s
+      &:hover
+        transform: scale(110%)
+  .teacher_img
+    +size(100%, 100%)
+    background-image: url("https://images.api.hahow.in/images/5f2055fb1e8ecf8f0b89b1e0?width=56")
+    background-size: cover
+    position: absolute
+    left: 5px
+    top: 0
+    transform: translateY(-50%)
+    +size(52px, 52px)
+    border: solid 1px #ffffff
+    border-radius: 100%
+    z-index: 10
+  .title
+    margin: 0
+    padding: 20px 10px
+    padding-bottom: 30px
+    box-sizing: border-box
+    color: #606261
+  .infos
+    padding-left: 10px
+    padding-right: 10px
+    margin-bottom: 6px
+    font-weight: 100
+    .infos_top
+      .pull_left, .pull_right
+        display: inline-block
+      .pull_left
+        .proposal_price
+          color: rgb(250, 139, 0)
+      .pull_right
+        position: absolute
+        right: 0
+  .infos_middle
+    height: 10px
+    background-color: #888888
+    border-radius: 10px
+    overflow: hidden
+    .percentage_line
+      height: 10px
+      background-color: #FA8B00
+      border-radius: 10px
+  .infos_bottom
+    text-align: center

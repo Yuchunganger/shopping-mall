@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>探索課程</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  getCourses.css  -->
+    <link rel="stylesheet" th:href="@{/css/getCourses.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+
+</head>
+<body>
+<header>
+    <nav class="navbar" th:include="index :: navbar"></nav>
+</header>
+<div id="screen">
+    <div id="vm_courses">
+        <div class="courses" v-for="course in courses.results">
+            <div class="teacher_img" v-bind:style="'background-image: url(' + course.teacherImageUrl + ')'"></div>
+            <div class="top">
+                <div class="cover_img" v-bind:style="'background-image: url(' + course.coverImageUrl + ')'"></div>
+                <div class="status">募資中</div>
+            </div>
+            <h2 class="title">{{course.title}}</h2>
+            <div class="infos">
+                <div class="infos_top">
+                    <div class="pull_left">預購價
+                        <span class="proposal_price">NT${{course.proposalPrice}}</span>
+                    </div>
+                    <div class="pull_right">剩
+                        <span class="deadline">{{parseInt((new Date(course.proposalDueTime) - new Date())/1000/60/60/24)}}</span> 天
+                    </div>
+                </div>
+                <div class="infos_middle">
+                    <div class="percentage_line" v-bind:style="'width: ' + parseFloat(course.currentNumSoldTickets/course.criteriaNumSoldTickets).toPrecision(3)*100"></div>
+                </div>
+                <div class="infos_bottom">已募資
+                    <span class="percentage">{{parseFloat(course.currentNumSoldTickets/course.criteriaNumSoldTickets).toPrecision(3)*100}}</span>%
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var courses = [];
+    var vm = new Vue({
+        el: "#vm_courses",
+        data: {
+            courses: courses
+        },
+        mounted: function(){
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/products",
+                success: function(data){
+                    vm.courses = data;
+                    console.log("ajax成功，返回資料如下： " + data.results);
+                    console.log("Date: " + data.results[0].proposalDueTime)
+                    console.log("Date typeof: " + typeof(data.results[0].proposalDueTime))
+                },
+                error: function(error){
+                    console.log("發生錯誤，錯誤代碼為： " + error.status);
+                }
+            })
+        }
+    })
+</script>
+</body>
+</html>
