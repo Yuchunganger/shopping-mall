@@ -64,10 +64,10 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
+    @GetMapping("/products/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Integer id) {
 
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(id);
 
         if (product != null) {
             return ResponseEntity.status(HttpStatus.OK)
@@ -79,32 +79,32 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
-        Integer productId = productService.createProduct(productRequest);
-        Product product = productService.getProductById(productId);
+        Integer id = productService.createProduct(productRequest);
+        Product product = productService.getProductById(id);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(product);
     }
 
-    @PutMapping("/products/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
+    @PutMapping("/products/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer id,
                                                  @RequestBody @Valid ProductRequest productRequest) {
 
         // 檢查 product 是否存在
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(id);
         if (product == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         // 修改商品
-        productService.updateProductById(productId, productRequest);
-        product = productService.getProductById(productId);
+        productService.updateProductById(id, productRequest);
+        product = productService.getProductById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(product);
     }
 
-    @DeleteMapping("/products/{productId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
-        productService.deleteProduct(productId);
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
+        productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

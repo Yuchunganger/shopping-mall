@@ -3,6 +3,7 @@ package com.judychen.springbootmall.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.judychen.springbootmall.constant.ProductCategory;
 import com.judychen.springbootmall.dto.ProductRequest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,13 +38,15 @@ public class ProductControllerTest {
         mockMvc.perform(requestBuilder)
                 .andDo(print())
                 .andExpect(status().is(200)) // OK
-                .andExpect(jsonPath("$.productName", equalTo("蘋果（澳洲）")))
-                .andExpect(jsonPath("$.productId", equalTo(1)))
-                .andExpect(jsonPath("$.category", equalTo("FOOD")))
-                .andExpect(jsonPath("$.imageUrl", notNullValue()))
+                .andExpect(jsonPath("$.teacher", equalTo("莫彩曦")))
+                .andExpect(jsonPath("$.id", equalTo(1)))
+                .andExpect(jsonPath("$.category", equalTo("LANGUAGE")))
+                .andExpect(jsonPath("$.coverImageUrl", notNullValue()))
+                .andExpect(jsonPath("$.teacherImageUrl", notNullValue()))
+                .andExpect(jsonPath("$.courseUrl", notNullValue()))
                 .andExpect(jsonPath("$.description", notNullValue()))
                 .andExpect(jsonPath("$.price", notNullValue()))
-                .andExpect(jsonPath("$.stock", notNullValue()))
+                .andExpect(jsonPath("$.proposalPrice", notNullValue()))
                 .andExpect(jsonPath("$.createdDate", notNullValue()))
                 .andExpect(jsonPath("$.lastModifiedDate", notNullValue()));
     }
@@ -49,22 +54,29 @@ public class ProductControllerTest {
     @Test
     public void getProduct_ProductNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/products/{productId}", 2000);
+                .get("/products/{id}", 2000);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(404)); // Not Found
     }
+
 
     @Transactional
     @Test
     public void createProduct() throws Exception {
         // Java Object -> Json
         ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductName("testName");
-        productRequest.setCategory(ProductCategory.FOOD);
-        productRequest.setImageUrl("http://test");
+        productRequest.setTeacher("testName");
+        productRequest.setTitle("title");
+        productRequest.setCategory(ProductCategory.PROGRAMMING);
+        productRequest.setCoverImageUrl("http://test");
+        productRequest.setTeacherImageUrl("http...");
+        productRequest.setCourseUrl("http:...");
+        productRequest.setProposalPrice(500);
         productRequest.setPrice(500);
-        productRequest.setStock(500);
+        productRequest.setProposalDueTime(new Date());
+        productRequest.setCriteriaNumSoldTickets(300);
+        productRequest.setCurrentNumSoldTickets(200);
 
         String json = objectMapper.writeValueAsString(productRequest);
 
@@ -77,12 +89,11 @@ public class ProductControllerTest {
         // Call Request
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(201)) // Created
-                .andExpect(jsonPath("$.productId", notNullValue()))
-                .andExpect(jsonPath("$.productName", equalTo("testName")))
-                .andExpect(jsonPath("$.category", equalTo("FOOD")))
-                .andExpect(jsonPath("$.imageUrl", equalTo("http://test")))
+                .andExpect(jsonPath("$.id", notNullValue()))
+                .andExpect(jsonPath("$.teacher", equalTo("testName")))
+                .andExpect(jsonPath("$.category", equalTo("PROGRAMMING")))
+                .andExpect(jsonPath("$.coverImageUrl", equalTo("http://test")))
                 .andExpect(jsonPath("$.price", equalTo(500)))
-                .andExpect(jsonPath("$.stock", equalTo(500)))
                 .andExpect(jsonPath("$.description", nullValue()))
                 .andExpect(jsonPath("$.createdDate", notNullValue()))
                 .andExpect(jsonPath("$.lastModifiedDate", notNullValue()));
@@ -92,7 +103,7 @@ public class ProductControllerTest {
     @Test
     public void createProduct_illegalArgument() throws Exception{
         ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductName("testName");
+        productRequest.setTeacher("testName");
 
         String json = objectMapper.writeValueAsString(productRequest);
 
@@ -110,27 +121,32 @@ public class ProductControllerTest {
     public void updateProduct() throws Exception{
         // Java Object -> Json
         ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductName("testName");
-        productRequest.setCategory(ProductCategory.FOOD);
-        productRequest.setImageUrl("http://test");
+        productRequest.setTeacher("testName");
+        productRequest.setTitle("title");
+        productRequest.setCategory(ProductCategory.ART);
+        productRequest.setCoverImageUrl("http://test");
+        productRequest.setTeacherImageUrl("http...");
+        productRequest.setCourseUrl("http:...");
+        productRequest.setProposalPrice(500);
         productRequest.setPrice(500);
-        productRequest.setStock(500);
+        productRequest.setProposalDueTime(new Date());
+        productRequest.setCriteriaNumSoldTickets(300);
+        productRequest.setCurrentNumSoldTickets(200);
 
         String json = objectMapper.writeValueAsString(productRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/products/{productI}", 1)
+                .put("/products/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200)) // OK
-                .andExpect(jsonPath("$.productId", equalTo(1)))
-                .andExpect(jsonPath("$.productName", equalTo("testName")))
-                .andExpect(jsonPath("$.category", equalTo("FOOD")))
-                .andExpect(jsonPath("$.imageUrl", equalTo("http://test")))
+                .andExpect(jsonPath("$.id", equalTo(1)))
+                .andExpect(jsonPath("$.teacher", equalTo("testName")))
+                .andExpect(jsonPath("$.category", equalTo("ART")))
+                .andExpect(jsonPath("$.coverImageUrl", equalTo("http://test")))
                 .andExpect(jsonPath("$.price", equalTo(500)))
-                .andExpect(jsonPath("$.stock", equalTo(500)))
                 .andExpect(jsonPath("$.description", nullValue()))
                 .andExpect(jsonPath("$.createdDate", notNullValue()))
                 .andExpect(jsonPath("$.lastModifiedDate", notNullValue()));
@@ -141,7 +157,7 @@ public class ProductControllerTest {
     @Test
     public void updateProduct_illegalArgument() throws Exception{
         ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductName("testName");
+        productRequest.setTeacher("testName");
 
         String json = objectMapper.writeValueAsString(productRequest);
 
@@ -159,11 +175,17 @@ public class ProductControllerTest {
     @Test
     public void updateProduct_productNotFound() throws Exception{
         ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductName("testName");
-        productRequest.setCategory(ProductCategory.FOOD);
-        productRequest.setImageUrl("http://test");
+        productRequest.setTeacher("testName");
+        productRequest.setTitle("title");
+        productRequest.setCategory(ProductCategory.ART);
+        productRequest.setCoverImageUrl("http://test");
+        productRequest.setTeacherImageUrl("http...");
+        productRequest.setCourseUrl("http:...");
+        productRequest.setProposalPrice(500);
         productRequest.setPrice(500);
-        productRequest.setStock(500);
+        productRequest.setProposalDueTime(new Date());
+        productRequest.setCriteriaNumSoldTickets(300);
+        productRequest.setCurrentNumSoldTickets(200);
 
         String json = objectMapper.writeValueAsString(productRequest);
 
@@ -210,22 +232,22 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.limit", notNullValue()))
                 .andExpect(jsonPath("$.offset", notNullValue()))
                 .andExpect(jsonPath("$.total", notNullValue()))
-                .andExpect(jsonPath("$.results", hasSize(5)));
+                .andExpect(jsonPath("$.results", hasSize(1)));
     }
 
     @Test
     public void getProducts_filtering() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/products")
-                .param("search", "B")
-                .param("category", "CAR");
+                .param("search", "入")
+                .param("category", "LANGUAGE");
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200)) // OK
                 .andExpect(jsonPath("$.limit", notNullValue()))
                 .andExpect(jsonPath("$.offset", notNullValue()))
                 .andExpect(jsonPath("$.total", notNullValue()))
-                .andExpect(jsonPath("$.results", hasSize(2)));
+                .andExpect(jsonPath("$.results", hasSize(1)));
     }
 
     @Test
@@ -241,11 +263,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.limit", notNullValue()))
                 .andExpect(jsonPath("$.offset", notNullValue()))
                 .andExpect(jsonPath("$.total", notNullValue()))
-                .andExpect(jsonPath("$.results", hasSize(5)))
-                .andExpect(jsonPath("$.results[0].productId", equalTo(6)))
-                .andExpect(jsonPath("$.results[1].productId", equalTo(5)))
-                .andExpect(jsonPath("$.results[2].productId", equalTo(7)))
-                .andExpect(jsonPath("$.results[3].productId", equalTo(4)))
-                .andExpect(jsonPath("$.results[4].productId", equalTo(2)));
+                .andExpect(jsonPath("$.results", hasSize(1)))
+                .andExpect(jsonPath("$.results[0].id", equalTo(1)));
     }
 }
