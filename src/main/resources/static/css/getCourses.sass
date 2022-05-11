@@ -13,21 +13,41 @@ html, body
   +size(100%, 100%)
 
 #screen
-  padding: 100px 170px
+  padding: 40px 150px
 
-#vm_courses
-  padding: 30px 10px
+#nav_search_icon, #nav_search
+  display: none
+
+.search
+  width: 500px
+  background-color: #ffffff
+  border: solid 1px #888888
+  border-radius: 5px
+  padding: 10px 20px
+  margin-bottom: 50px
+  i, input
+    margin: 0
+    padding: 0
+    vertical-align: middle
+  i
+    margin-right: 10px
+    font-size: 20px
+    cursor: pointer
+  input
+    width: 460px
+    font-size: 20px
+    border: none
 
 .courses
-  +size(265px, 370px)
+  +size(260px, 370px)
   display: inline-block
-  margin-right: 30px
+  margin-right: 25px
+  margin-bottom: 70px
   color: #fff
   padding-bottom: 10px
   box-shadow: 0 0 12px rgba(#000,0.2)
   border-bottom: solid 6px #FA8B00
   border-radius: 5px
-  overflow: hidden
   .top
     +size(100%, 170px)
     overflow: hidden
@@ -86,6 +106,8 @@ html, body
     height: 10px
     background-color: #888888
     border-radius: 10px
+    margin-top: 4px
+    margin-bottom: 4px
     overflow: hidden
     .percentage_line
       height: 10px
@@ -93,3 +115,15 @@ html, body
       border-radius: 10px
   .infos_bottom
     text-align: center
+
+.pagebar
+  text-align: center
+  color: #606261
+  ul, li
+    display: inline-block
+    margin: 0
+    padding: 0
+  li
+    list-style: none
+    padding: 7px 13px
+    cursor: pointer

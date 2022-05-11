@@ -28,7 +28,13 @@
 </header>
 <div id="screen">
     <div id="vm_courses">
-        <div class="courses" v-for="course in courses.results">
+        <div class="search">
+            <i id="search_icon" class="fa-solid fa-magnifying-glass" v-on:click="updatePage(querys)"></i>
+            <input id="search" type="search" placeholder="熱門搜尋：日文" v-model="querys.search">
+        </div>
+        <div id="page_importing" v-if="courses.length === 0 && querys.search === null">課程載入中...</div>
+        <div id="search_result" v-if="courses.length === 0 && querys.search !== null">很抱歉，目前沒有符合的相關搜尋課程名稱。</div>
+        <div class="courses" v-for="course in courses">
             <div class="teacher_img" v-bind:style="'background-image: url(' + course.teacherImageUrl + ')'"></div>
             <div class="top">
                 <div class="cover_img" v-bind:style="'background-image: url(' + course.coverImageUrl + ')'"></div>
@@ -41,43 +47,107 @@
                         <span class="proposal_price">NT${{course.proposalPrice}}</span>
                     </div>
                     <div class="pull_right">剩
-                        <span class="deadline">{{parseInt((new Date(course.proposalDueTime) - new Date())/1000/60/60/24)}}</span> 天
+                        <span class="deadline">{{parseInt((new Date(course.proposalDueTime) - new Date()) / 1000 / 60 / 60 / 24)}}</span>
+                        天
                     </div>
                 </div>
                 <div class="infos_middle">
-                    <div class="percentage_line" v-bind:style="'width: ' + parseFloat(course.currentNumSoldTickets/course.criteriaNumSoldTickets).toPrecision(3)*100"></div>
+                    <div class="percentage_line"
+                         v-bind:style="'width: ' + parseFloat(course.currentNumSoldTickets/course.criteriaNumSoldTickets).toPrecision(3)*100"></div>
                 </div>
                 <div class="infos_bottom">已募資
-                    <span class="percentage">{{parseFloat(course.currentNumSoldTickets/course.criteriaNumSoldTickets).toPrecision(3)*100}}</span>%
+                    <span class="percentage">{{parseFloat(course.currentNumSoldTickets / course.criteriaNumSoldTickets).toPrecision(3) * 100}}</span>%
                 </div>
             </div>
+        </div>
+        <div class="pagebar">
+            <ul>
+                <li v-for="page in pagination.pageNum" v-bind:id="page" v-on:click="changePage(page)">{{page}}</li>
+            </ul>
         </div>
     </div>
 </div>
 
 <script>
+    var datas = {};
     var courses = [];
+    var query = {
+        search: null,
+        orderBy: null,
+        limit: null,
+        offset: null
+    };
+    var pagination = {
+        currentPage: 1,
+        pageNum: [],
+        pageLimit: [],
+        pageOffset: [],
+    }
     var vm = new Vue({
         el: "#vm_courses",
         data: {
-            courses: courses
+            datas: datas,
+            courses: courses,
+            querys: query,
+            pagination: pagination
         },
-        mounted: function(){
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:8080/products",
-                success: function(data){
-                    vm.courses = data;
-                    console.log("ajax成功，返回資料如下： " + data.results);
-                    console.log("Date: " + data.results[0].proposalDueTime)
-                    console.log("Date typeof: " + typeof(data.results[0].proposalDueTime))
-                },
-                error: function(error){
-                    console.log("發生錯誤，錯誤代碼為： " + error.status);
-                }
-            })
+
+        methods: {
+            updatePage: function(query){
+                callPage(query)
+            },
+            changePage: function(pageNum){
+                vm.pagination.currentPage = pageNum;
+                vm.querys.limit = vm.pagination.pageLimit[pageNum - 1];
+                vm.querys.offset = vm.pagination.pageOffset[pageNum - 1];
+                console.log("vm.pagination.currentPage： " + vm.pagination.currentPage);
+                console.log("vm.querys.limit： " + vm.querys.limit);
+                console.log("vm.querys.offset： " + vm.querys.offset);
+                callPage(vm.querys);
+                console.log("vm.querys： " + vm.querys);
+                console.log("vm.querys.limit： " + vm.querys.limit);
+                console.log("vm.querys.offset： " + vm.querys.offset);
+            }
+        },
+        mounted: function () {
+            callPage(query);
         }
     })
+
+    function callPage(query){
+        var str = "http://localhost:8080/products?search={search}&orderBy={orderBy}&limit={limit}&offset={offset}";
+        str = (query.search === null) ? (str.replace("{search}", "")): (str.replace("{search}", query.search));
+        str = (query.orderBy === null) ? (str.replace("{orderBy}", "")): (str.replace("{orderBy}", query.orderBy));
+        str = (query.limit === null) ? (str.replace("{limit}", "")) : (str.replace("{limit}", query.limit));
+        str = (query.offset === null) ? (str.replace("{offset}", "")) : (str.replace("{offset}", query.offset));
+        console.log("url = " + str);
+        $.ajax({
+            method: "GET",
+            url: str,
+            success: function (data) {
+                vm.datas = data;
+                vm.courses = data.results
+                var total = data.total;
+                var limit = data.limit;
+                var offset = data.offset;
+                var pageTotal = parseInt(total/limit);
+                (total%limit !== 0) ? pageTotal += 1 : pageTotal += 0
+                vm.pagination.pageNum = Array.from({length: pageTotal}, (_, i) => i + 1)
+                vm.pagination.pageLimit = Array.from({length: pageTotal}, x => limit)
+                vm.pagination.pageOffset = Array.from(Array(pageTotal).keys()).map(x => x * 5 - 1);
+                vm.pagination.pageOffset[0] = 0;
+                console.log("vm.pages.pageNum： " + vm.pagination.pageNum);
+                console.log("vm.pages.pageLimit： " + vm.pagination.pageLimit);
+                console.log("vm.pages.pageOffset： " + vm.pagination.pageOffset);
+                console.log("ajax成功，返回資料如下： " + data.results);
+                console.log("Date: " + data.results[0].proposalDueTime)
+                console.log("Date typeof: " + typeof (data.results[0].proposalDueTime))
+            },
+            error: function (error) {
+                console.log("發生錯誤，錯誤代碼為： " + error.status);
+            }
+        })
+    }
 </script>
 </body>
 </html>

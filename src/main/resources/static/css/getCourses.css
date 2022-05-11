@@ -10,22 +10,42 @@ html, body {
     height: 100%; }
 
 #screen {
-    padding: 100px 170px; }
+    padding: 40px 150px; }
 
-#vm_courses {
-    padding: 30px 10px; }
+#nav_search_icon, #nav_search {
+    display: none; }
+
+.search {
+    width: 500px;
+    background-color: #ffffff;
+    border: solid 1px #888888;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 50px; }
+.search i, .search input {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle; }
+.search i {
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer; }
+.search input {
+    width: 460px;
+    font-size: 20px;
+    border: none; }
 
 .courses {
-    width: 265px;
+    width: 260px;
     height: 370px;
     display: inline-block;
-    margin-right: 30px;
+    margin-right: 25px;
+    margin-bottom: 70px;
     color: #fff;
     padding-bottom: 10px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
     border-bottom: solid 6px #FA8B00;
-    border-radius: 5px;
-    overflow: hidden; }
+    border-radius: 5px; }
 .courses .top {
     width: 100%;
     height: 170px;
@@ -86,6 +106,8 @@ html, body {
     height: 10px;
     background-color: #888888;
     border-radius: 10px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     overflow: hidden; }
 .courses .infos_middle .percentage_line {
     height: 10px;
@@ -93,3 +115,15 @@ html, body {
     border-radius: 10px; }
 .courses .infos_bottom {
     text-align: center; }
+
+.pagebar {
+    text-align: center;
+    color: #606261; }
+.pagebar ul, .pagebar li {
+    display: inline-block;
+    margin: 0;
+    padding: 0; }
+.pagebar li {
+    list-style: none;
+    padding: 7px 13px;
+    cursor: pointer; }

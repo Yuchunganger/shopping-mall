@@ -112,6 +112,7 @@ ul {
 .navbar .navbar_middle input {
     font-size: 18px ;
     width: 200px;
+    border: none;
 }
 
 .navbar .navbar_right {
