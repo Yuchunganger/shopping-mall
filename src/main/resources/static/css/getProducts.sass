@@ -1,0 +1,120 @@
+*
+  //border: solid 1px black
+  font-family: Arial, 微軟正黑體
+  position: relative
+
+@mixin size($w, $h)
+  width: $w
+  height: $h
+
+html, body
+  margin: 0
+  padding: 0
+  +size(100%, 100%)
+
+body
+  background-image: none
+
+#screen
+  padding: 40px 150px
+
+#nav_search_icon, #nav_search
+  display: none
+
+.search
+  width: 500px
+  background-color: #ffffff
+  border: solid 1px #888888
+  border-radius: 5px
+  padding: 10px 20px
+  margin-bottom: 50px
+  i, input
+    margin: 0
+    padding: 0
+    vertical-align: middle
+  i
+    margin-right: 10px
+    font-size: 20px
+    cursor: pointer
+  input
+    width: 460px
+    font-size: 20px
+    border: none
+
+.products
+  .products_table
+    width: 100%
+    border: solid 1px #888888
+    border-collapse: collapse
+    box-sizing: border-box
+    text-align: center
+    vertical-align: middle
+  thead
+    width: 100%
+    //padding: 5px 10px
+    border: solid 1px #888888
+    background-color: #FA8B00
+    tr
+      height: 40px
+    td
+      color: white
+      border-right: solid 1px #888888
+    #product_id
+      width: 5%
+    #product_category
+      width: 10%
+    #product_imageUrl
+      width: 80px
+    #product_name
+      width: 20%
+    #product_description
+      width: 30%
+    #product_stock
+      width: 10%
+    #product_price
+      width: 10%
+
+  tbody
+    padding: 5px 10px
+    background-color: #FED3A3
+    tr
+      border: solid 1px #888888
+      td
+        height: 80px
+        padding: 5px 10px
+        overflow: scroll
+        border-right: solid 1px #888888
+        img
+          max-width: 80px
+          max-height: 80px
+          margin: 0
+          padding: 0
+          vertical-align: top
+      .product_id
+        width: 5%
+      .product_category
+        width: 10%
+      .product_imageUrl
+        width: 80px
+      .product_name
+        width: 25%
+      .product_description
+        width: 35%
+        font-size: 13px
+      .product_stock
+        width: 10%
+      .product_price
+        width: 10%
+
+.pagebar
+  text-align: center
+  color: #606261
+  margin-top: 10px
+  ul, li
+    display: inline-block
+    margin: 0
+    padding: 0
+  li
+    list-style: none
+    padding: 7px 13px
+    cursor: pointer
