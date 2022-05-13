@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Mall</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+</head>
+<body>
+<div id="Shopping">
+    <header>
+        <nav class="navbar" th:fragment="navbar">
+            <div class="container">
+                <div class="icon">
+                    <a th:href="@{/shop}"><img id="icon_1"
+                                           src="https://cdn4.iconfinder.com/data/icons/buildings-57/210/1177-1024.png"
+                                           alt="Shopping Mall"></a>
+                </div>
+                <ul class="navbar navbar_left">
+                    <li>
+                        <a th:href="@{/shop/products}">探索</a>
+                    </li>
+                    <li>
+                        <a>文章</a>
+                    </li>
+                </ul>
+
+                <div class="navbar navbar_right">
+                    <div id="create"><a th:href="@{/shop/products/create}">賣家/新增商品</a></div>
+                    <i id="cart" class="fa-solid fa-cart-shopping"></i>
+                    <div id="login">登入/註冊</div>
+                </div>
+            </div>
+        </nav>
+        <div class="cover">
+            <div class="cover_main">
+                <h2 class="title">最好用的<span id="title_green">線上商城</span></h2>
+                <h2 class="title">滿足您的日常生活所需</h2>
+                <div id="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" placeholder="今天想買什麼？">
+                </div>
+                <ul class="keysearch" style="margin-top: 20px">
+                    <li>蘋果</li>
+                    <li>特斯拉</li>
+                    <li>電視</li>
+                    <li>口罩</li>
+                    <li>防疫用具</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+</div>
+</body>
+</html>

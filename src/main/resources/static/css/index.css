@@ -1,0 +1,194 @@
+* {
+    /*border: solid 1px black;*/
+    position: relative;
+    font-family: Arial, '微軟正黑體';
+    color: rgba(0, 0, 0, 0.65);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+body {
+    background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full%20page/img(11).webp");
+    background-size: cover;
+}
+
+#shopping {
+    left: auto;
+    right: auto;
+}
+
+nav {
+    /*position: fixed;*/
+    /*top: 0;*/
+    height: 50px;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.navbar {
+    left: auto;
+    right: auto;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.navbar .container {
+    width: 100%;
+    left: auto;
+    right: auto;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 150px;
+    padding-right: 150px;
+    box-sizing: border-box;
+}
+
+.container .icon, .container ul, .container li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon #icon_1 {
+    /*height: calc(100% - 10px);*/
+    display: inline-block;
+}
+
+#icon_1 {
+    height: 50px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+ul {
+    margin: 0;
+    padding: 0
+}
+
+.navbar .navbar_left {
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.navbar .navbar_left li {
+    list-style: none;
+    margin-right: 28px;
+    cursor: pointer;
+}
+
+.navbar .navbar_left li a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none
+}
+
+.navbar .navbar_left li a:hover {
+    color: rgba(1, 190, 164, 1);
+}
+
+.navbar .navbar_right {
+    position: absolute;
+    left: initial;
+    right: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navbar .navbar_right #create {
+    margin-right: 10px;
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 5px;
+    background-color: #FA8B00;
+}
+
+.navbar .navbar_right #create a {
+    color: white;
+    text-decoration: none
+}
+
+.navbar .navbar_right i {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.navbar .navbar_right #login {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cover {
+    padding: 100px 150px;
+    box-sizing: border-box;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.cover_main {
+    width: 100%;
+    display: inline-block;
+}
+
+.cover_main .title {
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.cover_main .title #title_green {
+    color: rgba(1, 190, 164, 1);
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.cover_main #search {
+    width: 100%;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    margin-top: 30px;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #EEEEEE;
+}
+
+.cover_main #search i {
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cover_main #search input {
+    width: calc(100% - 50px);
+    font-size: 20px;
+    border: none;
+    background-color: #EEEEEE;
+    color: #888;
+}
+
+.keysearch ul {
+    margin-top: 20px;
+}
+
+.keysearch li {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+    background-color: rgba(234, 252, 247, 1);
+    color: rgba(1, 190, 164, 1);
+    font-size: 14px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.keysearch li:hover {
+    background-color: rgba(1, 190, 164, 1);
+    color: rgba(228, 247, 244, 1);
+}
