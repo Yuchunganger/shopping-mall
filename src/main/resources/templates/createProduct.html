@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>創建商品</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  createProdcut.css  -->
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+</head>
+<body>
+<div id="screen">
+    <div id="products">
+        <header>
+            <nav class="navbar" th:include="index :: navbar"></nav>
+        </header>
+        <div id="products_create">
+            <h1>好的商品名稱與介紹很重要！</h1>
+            <h2>提供的資訊越詳細，越能提高消費者購買的意願！</h2>
+            <div id="product_infos">
+                <div class="category">
+                    <label for="input_category" class="input_datas" id="category">類別</label>
+                    <select name="category" id="input_category" required="required" v-model="requestBodyForCreateProduct.category">
+                        <option value="" disabled selected>請選擇商品類別</option>
+                        <option value="CAR">汽車</option>
+                        <option value="BOOK">書籍</option>
+                        <option value="FOOD">食品</option>
+                        <option value="OTHERS">其它</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="image_url">
+                    <label for="input_image_url" class="input_datas">商品圖片</label>
+                    <input name="image_url" id="input_image_url" type="text" placeholder="http://..."
+                           required="required" v-model="requestBodyForCreateProduct.imageUrl">
+                </div>
+                <hr>
+                <div class="product_name">
+                    <label for="input_product_name" class="input_datas">商品名稱</label>
+                    <input name="product_name" id="input_product_name" type="text" placeholder="宜蘭在地無農藥三星蔥"
+                           required="required"
+                           v-model="requestBodyForCreateProduct.productName">
+                </div>
+                <hr>
+                <div class="description">
+                    <label for="input_description" class="input_datas">商品介紹</label>
+                    <input name="description" id="input_description" type="text" placeholder="宜蘭特產三星蔥，超新鮮超好吃！"
+                           v-model="requestBodyForCreateProduct.description" maxlength="80">
+                </div>
+                <hr>
+                <div class="price">
+                    <label for="input_price" class="input_datas">價格</label>
+                    <input name="price" id="input_price" type="text" placeholder="39" required="required"
+                           v-model="requestBodyForCreateProduct.price">
+                </div>
+                <hr>
+                <div class="stock">
+                    <label for="stock" class="input_datas">庫存</label>
+                    <input name="stock" id="stock" type="text" placeholder="20" required="required"
+                           v-model="requestBodyForCreateProduct.stock">
+                </div>
+            </div>
+            <div class="submit">
+                <input id="submit" type="submit" v-on:click="createProduct()" value="新增商品">
+            </div>
+        </div>
+    </div>
+    <div id="member" th:include="index :: for_member"></div>
+</div>
+<script src="/js/shopping.js"></script>
+</body>
+</html>

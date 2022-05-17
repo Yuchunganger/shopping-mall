@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>探索課程</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  getProducts.css  -->
+    <link rel="stylesheet" th:href="@{/css/getProducts.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+
+</head>
+<body>
+<div id="screen">
+    <div id="products">
+        <header>
+            <nav class="navbar" th:include="index :: navbar"></nav>
+        </header>
+        <div class="search_page">
+            <div class="search">
+                <i id="search_icon" class="fa-solid fa-magnifying-glass" v-on:click="updatePage(querys)"></i>
+                <input id="search" type="search" placeholder="熱門搜尋：口罩" v-model="querys.search">
+            </div>
+            <div id="page_importing" v-if="products.length === 0 && querys.search === null">商品載入中...</div>
+            <div id="search_result" v-if="products.length === 0 && querys.search !== null">很抱歉，目前沒有相關的商品。</div>
+            <div class="products" v-if="products.length !== 0">
+                <table class="products_table">
+                    <thead>
+                    <tr>
+                        <td id="product_id">ID</td>
+                        <td id="product_category">分類</td>
+                        <td id="product_imageUrl">商品圖示</td>
+                        <td id="product_name">商品名稱</td>
+                        <td id="product_description">商品介紹</td>
+                        <td id="product_stock">庫存</td>
+                        <td id="product_price">價格</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="product in products">
+                        <td class="product_id">{{product.productId}}</td>
+                        <td class="product_category">{{product.category}}</td>
+                        <td class="product_imageUrl"><img v-bind:src="product.imageUrl" alt="商品圖片"></td>
+                        <td class="product_name">{{product.productName}}</td>
+                        <td class="product_description">{{product.description}}</td>
+                        <td class="product_stock">{{product.stock}}</td>
+                        <td class="product_price">{{product.price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagebar">
+                <ul>
+                    <li v-for="page in pagination.pageNum" v-bind:id="page" v-on:click="changePage(page)">{{page}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="member" th:include="index :: for_member"></div>
+</div>
+<script src="/js/shopping.js"></script>
+</body>
+</html>
