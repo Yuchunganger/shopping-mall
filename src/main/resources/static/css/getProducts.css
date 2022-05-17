@@ -12,11 +12,18 @@ html, body {
 body {
     background-image: none; }
 
-#screen {
-    padding: 40px 150px; }
+#screen, #products {
+    left: auto;
+    right: auto;
+    width: 100%;
+    height: 100%; }
 
 #nav_search_icon, #nav_search {
     display: none; }
+
+.search_page {
+    padding: 40px 150px;
+    box-sizing: border-box; }
 
 .search {
     width: 500px;
@@ -38,7 +45,7 @@ body {
     font-size: 20px;
     border: none; }
 
-.products .products_table {
+.products_table {
     width: 100%;
     border: solid 1px #888888;
     border-collapse: collapse;
@@ -46,60 +53,59 @@ body {
     text-align: center;
     vertical-align: middle; }
 
-.products thead {
+thead {
     width: 100%;
     border: solid 1px #888888;
     background-color: #FA8B00; }
-.products thead tr {
+thead tr {
     height: 40px; }
-.products thead td {
+thead td {
     color: white;
     border-right: solid 1px #888888; }
-.products thead #product_id {
+thead #product_id {
     width: 5%; }
-.products thead #product_category {
+thead #product_category {
     width: 10%; }
-.products thead #product_imageUrl {
+thead #product_imageUrl {
     width: 80px; }
-.products thead #product_name {
+thead #product_name {
     width: 20%; }
-.products thead #product_description {
+thead #product_description {
     width: 30%; }
-.products thead #product_stock {
+thead #product_stock {
     width: 10%; }
-.products thead #product_price {
+thead #product_price {
     width: 10%; }
 
-.products tbody {
-    padding: 5px 10px;
-    background-color: #FED3A3; }
-.products tbody tr {
+tbody {
+    padding: 5px 10px; }
+tbody tr {
     border: solid 1px #888888; }
-.products tbody tr td {
+tbody tr td {
     height: 80px;
     padding: 5px 10px;
     overflow: scroll;
     border-right: solid 1px #888888; }
-.products tbody tr td img {
+tbody tr td img {
     max-width: 80px;
     max-height: 80px;
     margin: 0;
     padding: 0;
     vertical-align: top; }
-.products tbody tr .product_id {
+tbody tr .product_id {
     width: 5%; }
-.products tbody tr .product_category {
+tbody tr .product_category {
     width: 10%; }
-.products tbody tr .product_imageUrl {
+tbody tr .product_imageUrl {
     width: 80px; }
-.products tbody tr .product_name {
+tbody tr .product_name {
     width: 25%; }
-.products tbody tr .product_description {
+tbody tr .product_description {
     width: 35%;
     font-size: 13px; }
-.products tbody tr .product_stock {
+tbody tr .product_stock {
     width: 10%; }
-.products tbody tr .product_price {
+tbody tr .product_price {
     width: 10%; }
 
 .pagebar {

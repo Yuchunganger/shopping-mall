@@ -15,11 +15,18 @@ html, body
 body
   background-image: none
 
-#screen
-  padding: 40px 150px
+#screen, #products
+  left: auto
+  right: auto
+  width: 100%
+  height: 100%
 
 #nav_search_icon, #nav_search
   display: none
+
+.search_page
+  padding: 40px 150px
+  box-sizing: border-box
 
 .search
   width: 500px
@@ -41,70 +48,69 @@ body
     font-size: 20px
     border: none
 
-.products
-  .products_table
-    width: 100%
-    border: solid 1px #888888
-    border-collapse: collapse
-    box-sizing: border-box
-    text-align: center
-    vertical-align: middle
-  thead
-    width: 100%
-    //padding: 5px 10px
-    border: solid 1px #888888
-    background-color: #FA8B00
-    tr
-      height: 40px
-    td
-      color: white
-      border-right: solid 1px #888888
-    #product_id
-      width: 5%
-    #product_category
-      width: 10%
-    #product_imageUrl
-      width: 80px
-    #product_name
-      width: 20%
-    #product_description
-      width: 30%
-    #product_stock
-      width: 10%
-    #product_price
-      width: 10%
 
-  tbody
-    padding: 5px 10px
-    background-color: #FED3A3
-    tr
-      border: solid 1px #888888
-      td
-        height: 80px
-        padding: 5px 10px
-        overflow: scroll
-        border-right: solid 1px #888888
-        img
-          max-width: 80px
-          max-height: 80px
-          margin: 0
-          padding: 0
-          vertical-align: top
-      .product_id
-        width: 5%
-      .product_category
-        width: 10%
-      .product_imageUrl
-        width: 80px
-      .product_name
-        width: 25%
-      .product_description
-        width: 35%
-        font-size: 13px
-      .product_stock
-        width: 10%
-      .product_price
-        width: 10%
+.products_table
+  width: 100%
+  border: solid 1px #888888
+  border-collapse: collapse
+  box-sizing: border-box
+  text-align: center
+  vertical-align: middle
+thead
+  width: 100%
+  //padding: 5px 10px
+  border: solid 1px #888888
+  background-color: #FA8B00
+  tr
+    height: 40px
+  td
+    color: white
+    border-right: solid 1px #888888
+  #product_id
+    width: 5%
+  #product_category
+    width: 10%
+  #product_imageUrl
+    width: 80px
+  #product_name
+    width: 20%
+  #product_description
+    width: 30%
+  #product_stock
+    width: 10%
+  #product_price
+    width: 10%
+
+tbody
+  padding: 5px 10px
+  tr
+    border: solid 1px #888888
+    td
+      height: 80px
+      padding: 5px 10px
+      overflow: scroll
+      border-right: solid 1px #888888
+      img
+        max-width: 80px
+        max-height: 80px
+        margin: 0
+        padding: 0
+        vertical-align: top
+    .product_id
+      width: 5%
+    .product_category
+      width: 10%
+    .product_imageUrl
+      width: 80px
+    .product_name
+      width: 25%
+    .product_description
+      width: 35%
+      font-size: 13px
+    .product_stock
+      width: 10%
+    .product_price
+      width: 10%
 
 .pagebar
   text-align: center

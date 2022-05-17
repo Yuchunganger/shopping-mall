@@ -11,49 +11,47 @@ html, body {
 body {
     background-image: none; }
 
-#screen {
-    padding: 40px 150px; }
+#screen, #products {
+    left: auto;
+    right: auto;
+    width: 100%;
+    height: 100%; }
 
-#vm_products_create h1, #vm_products_create h2 {
+#products_create {
+    padding: 40px 150px;
+    box-sizing: border-box; }
+#products_create h1, #products_create h2 {
     margin: 0; }
-
-#vm_products_create #product_infos {
+#products_create #product_infos {
     padding: 10px;
-    border: solid 1px #FA8B00;
     border-radius: 5px;
     background-color: #FED3A3;
     line-height: 40px;
     margin-top: 30px; }
-
-#vm_products_create label, #vm_products_create input {
+#products_create label, #products_create input {
     font-size: 20px; }
-
-#vm_products_create label {
+#products_create label {
     display: inline-block;
     width: 150px;
     border: none;
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center; }
-
-#vm_products_create input {
+#products_create input {
     display: inline-block;
     margin: 0;
     padding: 5px 10px;
     border: none;
     font-size: 20px;
     width: 750px; }
-
-#vm_products_create select {
+#products_create select {
     border: none;
     font-size: 20px;
     width: 770px; }
-
-#vm_products_create .submit {
+#products_create .submit {
     text-align: center;
     margin-top: 10px; }
-
-#vm_products_create #submit {
+#products_create #submit {
     display: block;
     width: 100%;
     background-color: #FA8B00;

@@ -20,49 +20,110 @@
     </script>
 </head>
 <body>
-<div id="Shopping">
-    <header>
-        <nav class="navbar" th:fragment="navbar">
-            <div class="container">
-                <div class="icon">
-                    <a th:href="@{/shop}"><img id="icon_1"
-                                           src="https://cdn4.iconfinder.com/data/icons/buildings-57/210/1177-1024.png"
-                                           alt="Shopping Mall"></a>
+<div id="screen">
+    <div id="Shopping">
+        <header>
+            <nav class="navbar" th:fragment="navbar">
+                <div class="container">
+                    <div class="icon">
+                        <a th:href="@{/shop}"><img id="icon_1"
+                                                   src="https://cdn4.iconfinder.com/data/icons/buildings-57/210/1177-1024.png"
+                                                   alt="Shopping Mall"></a>
+                    </div>
+                    <ul class="navbar navbar_left">
+                        <li>
+                            <a th:href="@{/shop/products}">探索</a>
+                        </li>
+                        <li>
+                            <a>文章</a>
+                        </li>
+                    </ul>
+                    <div class="navbar navbar_right">
+                        <div id="create" v-if="isMember"><a th:href="@{/shop/products/create}">新增商品</a></div>
+                        <i id="cart" class="fa-solid fa-cart-shopping"></i>
+                        <div id="login_btn" v-if="!isMember">登入/註冊</div>
+                        <div id="member_btn" v-if="isMember" v-text="member.memberFirstname">使用者名稱</div>
+                        <div id="logout_btn" v-if="isMember" v-on:click="logout()">登出</div>
+                    </div>
                 </div>
-                <ul class="navbar navbar_left">
-                    <li>
-                        <a th:href="@{/shop/products}">探索</a>
-                    </li>
-                    <li>
-                        <a>文章</a>
-                    </li>
-                </ul>
-
-                <div class="navbar navbar_right">
-                    <div id="create"><a th:href="@{/shop/products/create}">賣家/新增商品</a></div>
-                    <i id="cart" class="fa-solid fa-cart-shopping"></i>
-                    <div id="login">登入/註冊</div>
+            </nav>
+            <div class="cover">
+                <div class="cover_main">
+                    <h2 class="title">最好用的<span id="title_green">線上商城</span></h2>
+                    <h2 class="title">滿足您的日常生活所需</h2>
+                    <div id="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" placeholder="今天想買什麼？">
+                    </div>
+                    <ul class="keysearch" style="margin-top: 20px">
+                        <li>蘋果</li>
+                        <li>特斯拉</li>
+                        <li>電視</li>
+                        <li>口罩</li>
+                        <li>防疫用具</li>
+                    </ul>
                 </div>
             </div>
-        </nav>
-        <div class="cover">
-            <div class="cover_main">
-                <h2 class="title">最好用的<span id="title_green">線上商城</span></h2>
-                <h2 class="title">滿足您的日常生活所需</h2>
-                <div id="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="search" placeholder="今天想買什麼？">
+        </header>
+    </div>
+    <div id="member" th:fragment="for_member">
+        <div id="member_window">
+            <div class="member_title">
+                <h2 v-if="isLogin">登入</h2>
+                <h2 v-if="!isLogin">註冊</h2>
+            </div>
+            <div class="member_infos">
+                <div class="login_bar" v-if="isLogin">
+                    <div class="account_number">
+                        <label for="account_number_log">User Account</label>
+                        <input id="account_number_log" type="text" placeholder="myaccount"
+                               v-model="loginVariable.accountNumber"
+                               required="required">
+                    </div>
+                    <div class="account_password">
+                        <label for="account_password_log">Password</label>
+                        <input id="account_password_log" type="password" placeholder="mypassword"
+                               v-model="loginVariable.accountPassword" required="required">
+                    </div>
+                    <div class="submit" v-on:click="login()">登入</div>
+                    <h4 id="changeRegister" v-on:click="changeAnother()">尚無帳號？開始註冊！</h4>
                 </div>
-                <ul class="keysearch" style="margin-top: 20px">
-                    <li>蘋果</li>
-                    <li>特斯拉</li>
-                    <li>電視</li>
-                    <li>口罩</li>
-                    <li>防疫用具</li>
-                </ul>
+                <!--                切換至註冊框-->
+                <div class="register_bar" v-if="!isLogin">
+                    <div class="account_number">
+                        <label for="account_number_reg">User Account</label>
+                        <input id="account_number_reg" type="text" placeholder="myaccount"
+                               v-model="requestBodyForCreateMember.accountNumber"
+                               required="required">
+                        <p v-if="!isUniqueAccount">*該帳號已被註冊！請更換。</p>
+                    </div>
+                    <div class="account_password">
+                        <label for="account_password_reg">Password</label>
+                        <input id="account_password_reg" type="password" placeholder="mypassword"
+                               v-model="requestBodyForCreateMember.accountPassword" required="required">
+                    </div>
+                    <div class="memberFirstname">
+                        <label for="memberFirstname">First Name</label>
+                        <input id="memberFirstname" type="text" placeholder="Judy"
+                               v-model="requestBodyForCreateMember.memberFirstname" required="required">
+                    </div>
+                    <div class="memberLastname">
+                        <label for="memberLastname">Last Name</label>
+                        <input id="memberLastname" type="text" placeholder="Chen"
+                               v-model="requestBodyForCreateMember.memberLastname" required="required">
+                    </div>
+                    <div class="contactPhone">
+                        <label for="contactPhone">Contact Number</label>
+                        <input id="contactPhone" type="text" placeholder="mypassword"
+                               v-model="requestBodyForCreateMember.contactPhone" required="required">
+                    </div>
+                    <div class="submit" v-on:click="register(requestBodyForCreateMember)">註冊</div>
+                    <h4 id="changeLogin" v-on:click="changeAnother()">已有帳號？進行登入！</h4>
+                </div>
             </div>
         </div>
-    </header>
+    </div>
 </div>
+<script src="/js/shopping.js"></script>
 </body>
 </html>
