@@ -32,16 +32,23 @@
                     </div>
                     <ul class="navbar navbar_left">
                         <li>
-                            <a th:href="@{/shop/products}">探索</a>
+                            <a th:href="@{/shop/products}">探索商品</a>
                         </li>
                         <li>
-                            <a>文章</a>
+                            <a th:href="@{/shop/orders}">訂單中心</a>
                         </li>
+                        <li>
+                            <a th:href="@{/shop/products/create}">創建商品</a>
+                            <!--                            <div id="create" v-if="isMember"></div>-->
+                        </li>
+                        <li>
+                            <a th:href="@{/shop/products/update}">更新商品</a>
+                            <!--                            <div id="create" v-if="isMember"></div>-->
+                        </li>
+
                     </ul>
                     <div class="navbar navbar_right">
-                        <div id="create" v-if="isMember"><a th:href="@{/shop/products/create}">新增商品</a></div>
-                        <i id="cart" class="fa-solid fa-cart-shopping"></i>
-                        <div id="login_btn" v-if="!isMember">登入/註冊</div>
+                        <div id="login_btn" v-if="!isMember" v-on:click="showLoginPage()">登入/註冊</div>
                         <div id="member_btn" v-if="isMember" v-text="member.memberFirstname">使用者名稱</div>
                         <div id="logout_btn" v-if="isMember" v-on:click="logout()">登出</div>
                     </div>

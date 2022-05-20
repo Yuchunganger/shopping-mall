@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單中心</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  getOrders.css  -->
+    <link rel="stylesheet" th:href="@{/css/getOrders.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+
+</head>
+<body>
+<div id="screen">
+    <div id="products">
+        <header>
+            <nav class="navbar" th:include="index :: navbar"></nav>
+        </header>
+        <div id="order_list">
+            <button v-on:click="getOrders()" style="margin-bottom: 15px; font-size: 20px; cursor: pointer">查看我的訂單</button>
+            <h2 v-if="ordersWithDetails.length > 0" >共有 {{ordersWithDetails.length}} 組訂單</h2>
+            <div v-if="ordersWithDetails.length > 0" class="orders" v-for="order in ordersWithDetails">
+                <ul>
+                    <li class="date">{{order.createdDate}}</li>
+                    <li class="order_id">訂單編號：{{order.orderId}}</li>
+                    <li class="price">$ {{order.total}}</li>
+                    <div class="order_details">
+                        <ul>
+                            <li style="width: 60px">序號</li>
+                            <li style="width: 500px">商品名稱</li>
+                            <li style="width: 100px">分類</li>
+                            <li style="width: 60px">價格</li>
+                            <li style="width: 60px">數量</li>
+                            <li style="width: 80px">小計</li>
+                        </ul>
+                        <hr>
+                        <ul v-for="(orderDetailsWithProduct, index) in order.orderDetailsWithProducts">
+                            <li style="width: 60px">{{index + 1}}</li>
+                            <li style="width: 500px">{{orderDetailsWithProduct.productName}}</li>
+                            <li style="width: 100px">{{orderDetailsWithProduct.category}}</li>
+                            <li style="width: 60px">{{orderDetailsWithProduct.price}}</li>
+                            <li style="width: 60px">{{orderDetailsWithProduct.quantity}}</li>
+                            <li class="price_small" style="width: 80px">$ {{orderDetailsWithProduct.detail_total}}</li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="member" th:include="index :: for_member"></div>
+</div>
+<script src="/js/shopping.js"></script>
+</body>
+</html>

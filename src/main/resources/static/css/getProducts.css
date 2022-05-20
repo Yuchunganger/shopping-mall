@@ -82,7 +82,7 @@ tbody {
 tbody tr {
     border: solid 1px #888888; }
 tbody tr td {
-    height: 80px;
+    height: 55px;
     padding: 5px 10px;
     overflow: scroll;
     border-right: solid 1px #888888; }
@@ -92,6 +92,8 @@ tbody tr td img {
     margin: 0;
     padding: 0;
     vertical-align: top; }
+tbody tr td input {
+    text-align: center; }
 tbody tr .product_id {
     width: 5%; }
 tbody tr .product_category {
