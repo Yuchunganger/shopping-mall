@@ -44,32 +44,32 @@
                 <hr>
                 <div class="image_url">
                     <label for="input_image_url" class="input_datas">商品圖片</label>
-                    <input name="image_url" id="input_image_url" type="text" placeholder="http://..."
+                    <input name="image_url" id="input_image_url" type="text" placeholder="https://superbuy-hifamily.cdn.hinet.net/superbuy_admin/images/product/683/PR2204190002_main.webp?22052009"
                            required="required" v-model="requestBodyForCreateProduct.imageUrl">
                 </div>
                 <hr>
                 <div class="product_name">
                     <label for="input_product_name" class="input_datas">商品名稱</label>
-                    <input name="product_name" id="input_product_name" type="text" placeholder="宜蘭在地無農藥三星蔥"
+                    <input name="product_name" id="input_product_name" type="text" placeholder="澳洲綠無籽葡萄"
                            required="required"
-                           v-model="requestBodyForCreateProduct.productName">
+                           v-model="requestBodyForCreateProduct.productName" maxlength="20">
                 </div>
                 <hr>
                 <div class="description">
                     <label for="input_description" class="input_datas">商品介紹</label>
-                    <input name="description" id="input_description" type="text" placeholder="宜蘭特產三星蔥，超新鮮超好吃！"
-                           v-model="requestBodyForCreateProduct.description" maxlength="80">
+                    <input name="description" id="input_description" type="text" placeholder="來自南半球脆甜厚實的綠寶石，果肉飽滿紮實~脆度極高，免吐籽免剝皮直接吃，香甜好吃一口接一口！"
+                           v-model="requestBodyForCreateProduct.description" maxlength="60">
                 </div>
                 <hr>
                 <div class="price">
                     <label for="input_price" class="input_datas">價格</label>
-                    <input name="price" id="input_price" type="text" placeholder="39" required="required"
+                    <input name="price" id="input_price" type="text" placeholder="339" required="required"
                            v-model="requestBodyForCreateProduct.price">
                 </div>
                 <hr>
                 <div class="stock">
-                    <label for="stock" class="input_datas">庫存</label>
-                    <input name="stock" id="stock" type="text" placeholder="20" required="required"
+                    <label for="input_stock" class="input_datas">庫存</label>
+                    <input name="stock" id="input_stock" type="text" placeholder="99" required="required"
                            v-model="requestBodyForCreateProduct.stock">
                 </div>
             </div>
