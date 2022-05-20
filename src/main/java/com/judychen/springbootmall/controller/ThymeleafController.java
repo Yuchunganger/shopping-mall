@@ -31,6 +31,16 @@ public class ThymeleafController {
     public String createProduct() {
         return "createProduct";
     }
+
+    @GetMapping("/shop/orders")
+    public String getOrder() {
+        return "getOrders";
+    }
+
+    @GetMapping("/shop/products/update")
+    public String updateProduct(){
+        return "updateProduct";
+    }
 }
 
 
