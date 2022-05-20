@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新商品</title>
+    <!--  index.css  -->
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <!--  getProducts.css  -->
+    <link rel="stylesheet" th:href="@{/css/getProducts.css}">
+    <!--  font-awesome  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--  jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--  vue.js  -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+    </script>
+
+</head>
+<body>
+<div id="screen">
+    <div id="products">
+        <header>
+            <nav class="navbar" th:include="index :: navbar"></nav>
+        </header>
+        <div class="search_page">
+            <div class="search">
+                <i id="search_icon" class="fa-solid fa-magnifying-glass" v-on:click="updatePage(querys)"></i>
+                <input id="search" type="search" placeholder="熱門搜尋：口罩" v-model="querys.search">
+            </div>
+            <div id="page_importing" v-if="products.length === 0 && querys.search === null">商品載入中...</div>
+            <div id="search_result" v-if="products.length === 0 && querys.search !== null">很抱歉，目前沒有相關的商品。</div>
+            <div class="products" v-if="products.length !== 0">
+                <table class="products_table">
+                    <thead>
+                    <tr>
+                        <td id="product_id">ID</td>
+                        <td id="product_category">分類</td>
+                        <td id="product_imageUrl">商品圖示</td>
+                        <td id="product_name">商品名稱</td>
+                        <td id="product_description">商品介紹</td>
+                        <td id="product_stock">庫存</td>
+                        <td id="product_price">價格</td>
+                        <td id="choose_pro">選取</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="product in products">
+                        <td class="product_id" v-bind:id="'product_'+product.productId">{{product.productId}}</td>
+                        <td class="product_category">
+                            <select name="category" v-bind:id="'category_'+product.productId" required="required">
+                                <option v-if="product.category === 'CAR'" value="CAR">汽車</option>
+                                <option v-if="product.category === 'BOOK'" value="BOOK">書籍</option>
+                                <option v-if="product.category === 'FOOD'" value="FOOD">食品</option>
+                                <option v-if="product.category === 'OTHERS'" value="OTHERS">其它</option>
+                                <option value="CAR">汽車</option>
+                                <option value="BOOK">書籍</option>
+                                <option value="FOOD">食品</option>
+                                <option value="OTHERS">其它</option>
+                            </select>
+                        </td>
+                        <td class="product_imageUrl">
+                            <input type="text" v-bind:id="'imageUrl_'+product.productId" v-bind:value="product.imageUrl">
+                        </td>
+                        <td class="product_name">
+                            <input type="text" v-bind:id="'name_'+product.productId" v-bind:value="product.productName">
+                        </td>
+                        <td class="product_description">
+                            <input type="text" v-bind:id="'description_'+product.productId" v-bind:value="product.description">
+                        </td>
+                        <td class="product_stock">
+                            <input type="text" v-bind:id="'stock_'+product.productId" v-bind:value="product.stock">
+                        </td>
+                        <td class="product_price">
+                            <input type="text" v-bind:id="'price_'+product.productId" v-bind:value="product.price">
+                        </td>
+                        <td class="choose">
+                            <input class="checkboxes" type="checkbox" v-bind:id="'productId_'+product.productId" v-bind:value="product.productId">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="control_btn" style="text-align: center">
+                    <div id="createOrder" v-on:click="checkUpdateValue()" style="text-align: center; cursor: pointer; padding: 10px 20px; background-color: #FA8B00; border-radius: 5px;margin-top: 15px; color: white; font-size: 16px; display: inline-block; width: 45%">更新品項</div>
+                    <div id="deleteOrder" v-on:click="checkDeleteValue()" style="text-align: center; cursor: pointer; padding: 10px 20px; background-color: orangered; border-radius: 5px;margin-top: 15px; color: white; font-size: 16px; display: inline-block; width: 45%">刪除品項</div>
+                    <p style="font-size: 16px; color: red">*僅限單頁更新或刪除商品唷！</p>
+                </div>
+            </div>
+            <div class="pagebar">
+                <ul>
+                    <li v-for="page in pagination.pageNum" v-bind:id="page" v-on:click="changePage(page)">{{page}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="member" th:include="index :: for_member"></div>
+</div>
+<script src="/js/shopping.js"></script>
+</body>
+</html>
