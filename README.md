@@ -9,7 +9,7 @@ shopping-mall is a simple e-commerce website with the three funtions: product fu
   - Order Function: create/read orders.
 
 ## Technologies/Tools
-  - Frontend: Thymeleaf/HTML/CSS/SASS/JavaScript/jQuery/Ajax/Vue.js
+  - Frontend: Thymeleaf/HTML/CSS/Sass/JavaScript/jQuery/Ajax/Vue.js
   - Backend: Java/SpringBoot/SpringJDBC/MySQL
   - Version-Control: GitHub
   - IDE: IntelliJ
